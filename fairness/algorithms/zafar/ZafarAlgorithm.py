@@ -26,10 +26,10 @@ class ZafarAlgorithmBase(Algorithm):
 
         def create_file(df):
             out = {}
-            out["x"] = df.drop(columns=[class_attr]).as_matrix().tolist()
-            out["class"] = (2 * df[class_attr] - 1).as_matrix().tolist()
+            out["x"] = df.drop(columns=[class_attr]).to_numpy().tolist()
+            out["class"] = (2 * df[class_attr] - 1).to_numpy().tolist()
             out["sensitive"] = {}
-            out["sensitive"][single_sensitive] = df[single_sensitive].as_matrix().tolist()
+            out["sensitive"][single_sensitive] = df[single_sensitive].to_numpy().tolist()
             fd, name = tempfile.mkstemp()
             os.close(fd)
             out_file = open(name, "w")
@@ -64,7 +64,7 @@ class ZafarAlgorithmBase(Algorithm):
             predictions_correct = [0 if class_type(x) == -1 else 1 for x in predictions]
 
             # print("Predictions:  %s" % predictions_correct)
-            # print("ground truth: %s" % test_df[class_attr].as_matrix().tolist())
+            # print("ground truth: %s" % test_df[class_attr].to_numpy().tolist())
             return predictions_correct, []
 
 ##############################################################################
